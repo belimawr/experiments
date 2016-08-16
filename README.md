@@ -5,4 +5,4 @@ Small programming experiments.
 
 Go
 --
-* setJavaHome
+* [setJavaHome](setJavaHome/setJavaHome.go)
