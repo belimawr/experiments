@@ -29,7 +29,7 @@ func main() {
 	}
 
 	var val int
-	fmt.Print("Choose an opttion: ")
+	fmt.Print("Choose an option: ")
 	fmt.Scanf("%d", &val)
 	fmt.Println("User input: ", javas[val])
 
