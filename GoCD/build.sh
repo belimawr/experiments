@@ -1,4 +1,11 @@
 #!/bin/bash
+export GOPATH=$(pwd)
+
+mkdir -p src/GoCD/
+
+cp *.go src/GoCD/
+
+cd src/GoCD/
 
 mkdir -p bin
 mkdir -p reports
