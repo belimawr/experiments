@@ -17,3 +17,7 @@ func Test_even_odd(t *testing.T) {
 		t.Error("Expected a false")
 	}
 }
+
+func Test_broken_test(t *testing.T) {
+	t.Error("This is a broken test")
+}
