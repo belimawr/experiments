@@ -18,6 +18,6 @@ func Test_even_odd(t *testing.T) {
 	}
 }
 
-func Test_broken_test(t *testing.T) {
-	t.Error("This is a broken test")
-}
+// func Test_broken_test(t *testing.T) {
+// 	t.Error("This is a broken test")
+// }
