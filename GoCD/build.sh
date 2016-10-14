@@ -21,4 +21,6 @@ cd bin
 
 zip -9 GoCD-$GITHASH-STG.zip application
 
+cp GoCD-$GITHASH-STG.zip GoCD_To_Deploy.zip
+
 rm GoCD application
