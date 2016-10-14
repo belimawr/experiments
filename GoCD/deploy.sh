@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 GITHASH=`git rev-parse --short HEAD`
 S3KEY=GoCD-$GITHASH-STG_GoCD.zip
 
