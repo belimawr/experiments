@@ -20,4 +20,5 @@ cp bin/GoCD bin/application
 cd bin
 
 zip -9 GoCD-$GITHASH-STG.zip application
-mv GoCD-$GITHASH-STG.zip ../
+
+rm GoCD application
