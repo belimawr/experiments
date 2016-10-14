@@ -1,20 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"net/http"
+)
 
 func main() {
-	fmt.Println("Hello World")
-	fmt.Printf("Sum(40, 2) = %d\n", sum(40, 2))
-}
+	http.Handle("/hello/", &helloHandler{
+		version: "0.1",
+	})
 
-func sum(a, b int) int {
-	return a + b
-}
-
-func even(n int) bool {
-
-	if n%2 == 0 {
-		return true
+	if err := http.ListenAndServe("0.0.0.0:8080", nil); err != nil {
+		log.Fatal("Could not start the server")
 	}
-	return false
 }
