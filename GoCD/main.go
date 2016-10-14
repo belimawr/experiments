@@ -6,11 +6,17 @@ import (
 )
 
 func main() {
+
+	http.HandleFunc("/health/", health)
 	http.Handle("/hello/", &helloHandler{
 		version: "0.1",
 	})
 
-	if err := http.ListenAndServe("0.0.0.0:8080", nil); err != nil {
+	if err := http.ListenAndServe("0.0.0.0:5000", nil); err != nil {
 		log.Fatal("Could not start the server")
 	}
+}
+
+func health(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
 }
