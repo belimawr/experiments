@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>
+            Hello Vue!
+        </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.css" />
+    </head>
+
+    <body>
+        <div class="container row">
+
+            <h1 class="small-12 columns"> Hello Vue!</h1>
+
+            <div class="row">
+                <div id="cell-0-0" class="small-4 columns" v-on:click="play">
+                    {{ token }}
+                </div>
+                <div id="cell-0-1" class="small-4 columns" v-on:click="play">
+                    {{ token }}
+                </div>
+                <div id="cell-0-2" class="small-4 columns" v-on:click="play">
+                    {{ token }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="cell-1-0" class="small-4 columns" v-on:click="play">
+                    {{ token }}
+                </div>
+                <div id="cell-1-1" class="small-4 columns" v-on:click="play">
+                    {{ token }}
+                </div>
+                <div id="cell-1-2" class="small-4 columns" v-on:click="play">
+                    {{ token }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="cell-2-0" class="small-4 columns" v-on:click="play">
+                    {{ token }}
+                </div>
+                <div id="cell-2-1" class="small-4 columns" v-on:click="play">
+                    {{ token }}
+                </div>
+                <div id="cell-2-2" class="small-4 columns" v-on:click="play">
+                    {{ token }}
+                </div>
+            </div>
+
+        </div>
+    </body>
+
+    <script>
+
+     var board
+	 var player = 'X'
+     board = [
+         [null, null, null],
+         [null, null, null],
+         [null, null, null],
+     ]
+     for(row=0; row < 3; row++){
+         for(col=0; col < 3; col++){
+
+             board[row][col] = new Vue({
+                 el: '#cell-' + row + '-' + col,
+                 data: {
+                     token: '***'
+                 },
+                 methods: {
+                     play: function () {
+                         this.token = player
+						 player = (player === 'X')? 'O':'X'
+                     }
+                 }
+             })
+         }
+     }
+    </script>
+
+</html>
