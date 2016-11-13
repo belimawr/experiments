@@ -3,3 +3,5 @@ psycopg2
 django-extensions
 ipython
 ipdb
+redis
+django_redis
