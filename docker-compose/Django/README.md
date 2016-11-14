@@ -9,4 +9,4 @@ Running
 -------
 1. ``docker-compose run --rm web mysite/manage.py migrate``: Apply all migrations
 2. ``docker-compose run --rm web mysite/manage.py createsuperuser``: Create a super user
-3. ``docker-compose up -d``: Starts all, dockers as daemons
+3. ``docker-compose up -d``: Start all dockers as daemons
