@@ -15,3 +15,4 @@ Others
 ------
 * [Docker-Compose](docker-compose): Some experiments/tests/tutorials with docker-compose
   * [composetest](docker-compose/composetest): Docker compose [getting started](https://docs.docker.com/compose/gettingstarted/) tutorial
+  * [Django](docker-compose/Django): Docker compose experiment using Django + Redis + Postgres
