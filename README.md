@@ -11,6 +11,10 @@ JavaScript
 ----------
 * [Vue.js](https://belimawr.github.io/experiments/Vue.js/)
 
+Python
+------
+* [ESP8266 Websocket](ESP8266_WebSocket): A small experiment to understand better how WebSocket works on a WSP8266 
+
 Others
 ------
 * [Docker-Compose](docker-compose): Some experiments/tests/tutorials with docker-compose
