@@ -16,6 +16,9 @@ while l != b'\r\n':
 
 # Example of how to calculate Sec-WebSocket-Accept
 # Based on Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
-hash = uhashlib.sha1('VZGaO6XKTfVnMQsALKnikw==258EAFA5-E914-47DA-95CA-C5AB0DC85B11')
-sec_accept = ubinascii.b2a_base64(hash.digest())
+# Sec-WebSocket-Accept must be: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+# The "strip" is used because there is a '\n' at the end
+# of the final string
+hash = uhashlib.sha1('dGhlIHNhbXBsZSBub25jZQ==258EAFA5-E914-47DA-95CA-C5AB0DC85B11')
+sec_accept = ubinascii.b2a_base64(hash.digest()).strip()
 
