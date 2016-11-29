@@ -11,6 +11,11 @@ The source files are:
 * **test.py:** A example of how to use ``asyncio`` and ``websockets`` libraries to accept websocket connections. This was used to test the JavaScript/Browser code.
 * **browser.js:** JavaScript code to create a websocket and connect to the server (ESP8266).
 
+TODO
+----
+* Make **esp8266.py** a fully working script
+* Write an script showing how to use microPython's ``websocket``
 
 References:
 * https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers
+* https://github.com/micropython/micropython/blob/master/esp8266/modules/webrepl.py
