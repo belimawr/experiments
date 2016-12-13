@@ -5,7 +5,7 @@ import time
 from machine import Pin
 from neopixel import NeoPixel
 
-    
+
 np = NeoPixel(Pin(4), 24)
 
 def connect():
@@ -18,19 +18,19 @@ def connect():
     return ws
 
 
-def recebe(ws):
+def read_data(ws):
     global np
     msg = ws.read()
     print(msg)
     if not msg:
-        return 'not msg'
+        return 'There is no message to read'
     split = msg.decode('utf-8').split(':')
     colours = []
     for i in split[1].split(','):
         colours.append(int(i))
-        
+
     for i in range(24):
         np[i] = colours
         time.sleep(0.5)
         np.write()
-    return 'ok'
+    return 'It worked!'
