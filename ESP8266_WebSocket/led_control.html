@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <title>ESP866</title>
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+        <style>
+         div {
+             float: left;
+         }
+         input {
+             display: block;
+         }
+        </style>
+    </head>
+
+    <body>
+        <div style="display: block; float: none;">
+            IP:
+            <input type="text" value="192.168.0.1">
+            <button id="connect">Connect</button>
+        </div>
+
+        <div>
+            RED
+            <input type="range"  min="0" max="255" value="0" name="red" id="red" />
+        </div>
+
+        <div>
+            BLUE
+            <input type="range"  min="0" max="255" value="0" name="green" id="green" />
+        </div>
+
+        <div>
+            GREEN
+            <input type="range"  min="0" max="255" value="0" name="blue" id="blue" />
+        </div>
+
+
+        <script type="text/javascript">
+
+         function log_values(){
+             var r = $("#red").val();
+             var g = $("#green").val();
+             var b = $("#blue").val();
+
+             console.log("(" + r + ", " + g + ", " + b + ")");
+         }
+
+         function connect_esp(){
+             console.log('mock');
+         }
+
+         $('#red').on("change mousemove", log_values);
+
+         $('#blue').on("change mousemove", log_values);
+
+         $('#green').on("change mousemove", log_values);
+
+         $('#connect').on("click", connect_esp);
+        </script>
+    </body>
+</html>
