@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>ESP866</title>
-        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="jquery-3.1.1.js"></script>
 
         <style>
          div {
@@ -39,17 +39,36 @@
 
 
         <script type="text/javascript">
-
          function log_values(){
              var r = $("#red").val();
              var g = $("#green").val();
              var b = $("#blue").val();
 
-             console.log("(" + r + ", " + g + ", " + b + ")");
+			 var msg = "ESP:" + r + "," + g + "," + b + ":";
+			 ws.send(msg)
+
+             console.log(msg)
          }
 
          function connect_esp(){
+             ws = new WebSocket("ws://192.168.4.1:4242/")
+
+             ws.onerror = function (event) {
+				 console.log('ERROR');
+				 console.log(event.data)
+			 }
+
+             ws.onmessage = function (event) {
+				 console.log(event.data)
+			 }
+
+             ws.onclose = function (event) {
+				 console.log('CLOSE');
+				 console.log(event.data)
+			 }
+
              console.log('mock');
+			 return ws;
          }
 
          $('#red').on("change mousemove", log_values);
