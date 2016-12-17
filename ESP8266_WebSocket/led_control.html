@@ -44,8 +44,8 @@
              var g = $("#green").val();
              var b = $("#blue").val();
 
-			 var msg = "ESP:" + r + "," + g + "," + b + ":";
-			 ws.send(msg)
+             var msg = "ESP:" + r + "," + g + "," + b + ":";
+             ws.send(msg)
 
              console.log(msg)
          }
@@ -54,21 +54,21 @@
              ws = new WebSocket("ws://192.168.4.1:4242/")
 
              ws.onerror = function (event) {
-				 console.log('ERROR');
-				 console.log(event.data)
-			 }
+                 console.log('ERROR');
+                 console.log(event.data)
+             }
 
              ws.onmessage = function (event) {
-				 console.log(event.data)
-			 }
+                 console.log(event.data)
+             }
 
              ws.onclose = function (event) {
-				 console.log('CLOSE');
-				 console.log(event.data)
-			 }
+                 console.log('CLOSE');
+                 console.log(event.data)
+             }
 
              console.log('mock');
-			 return ws;
+             return ws;
          }
 
          $('#red').on("change mousemove", log_values);
