@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>ESP866</title>
         <script src="jquery-3.1.1.js"></script>
+        <script src="jquery.ba-throttle-debounce.js"></script>
 
         <style>
          div {
@@ -18,8 +19,9 @@
     <body>
         <div style="display: block; float: none;">
             IP:
-            <input type="text" value="192.168.0.1">
+            <input id="ip" type="text" value="192.168.0.1">
             <button id="connect">Connect</button>
+            <div id="status" style="float:none;">Status: Not connected</div>
         </div>
 
         <div>
@@ -28,18 +30,22 @@
         </div>
 
         <div>
-            BLUE
+			GREEN
             <input type="range"  min="0" max="255" value="0" name="green" id="green" />
         </div>
 
         <div>
-            GREEN
+            BLUE
             <input type="range"  min="0" max="255" value="0" name="blue" id="blue" />
         </div>
 
 
         <script type="text/javascript">
          function log_values(){
+			 if (!(typeof ws != "undefined" && ws instanceof WebSocket && ws.readyState == 1)){
+				 return
+			 }
+
              var r = $("#red").val();
              var g = $("#green").val();
              var b = $("#blue").val();
@@ -51,31 +57,40 @@
          }
 
          function connect_esp(){
-             ws = new WebSocket("ws://192.168.4.1:4242/")
+             var ip = $("#ip");
+             ws = new WebSocket("ws://" + ip.val() + ":4242/");
 
              ws.onerror = function (event) {
-                 console.log('ERROR');
-                 console.log(event.data)
+                 var status = $("#status");
+                 status.text("Status: Error");
              }
 
              ws.onmessage = function (event) {
-                 console.log(event.data)
+                 console.log(event.data);
              }
 
              ws.onclose = function (event) {
-                 console.log('CLOSE');
-                 console.log(event.data)
+                 var status = $("#status");
+                 var msg = "Status: " +  event.type +
+                           " Reason: " + event.reason +
+                           "Code: " + event.code;
+                 status.text(msg);
              }
 
-             console.log('mock');
+             ws.onopen = function(event) {
+                 var status = $("#status");
+                 status.text("Connected to: " + event.currentTarget.url)
+
+             }
+
              return ws;
          }
 
-         $('#red').on("change mousemove", log_values);
+         $('#red').on("change mousemove", $.debounce(250, log_values));
 
-         $('#blue').on("change mousemove", log_values);
+         $('#blue').on("change mousemove", $.debounce(250, log_values));
 
-         $('#green').on("change mousemove", log_values);
+         $('#green').on("change mousemove", $.debounce(250, log_values));
 
          $('#connect').on("click", connect_esp);
         </script>
