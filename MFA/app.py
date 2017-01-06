@@ -4,14 +4,18 @@ from flask import Flask, render_template, redirect, url_for, flash, session, abo
 from flask.ext.login import LoginManager, UserMixin, login_user, logout_user, current_user
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.wtf import Form
+from flask.ext.bootstrap import Bootstrap
 
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import Required, Length, EqualTo
 
 
 app = Flask(__name__)
+app.config.from_object('config')
 
+bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
+lm = LoginManager(app)
 
 
 class User(UserMixin, db.Model):
@@ -47,6 +51,11 @@ class LoginForm(Form):
     username = StringField('Username', validators=[Required(), Length(1, 64)])
     password = PasswordField('Password', validators=[Required()])
     subimit = SubmitField('Register')
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -86,3 +95,9 @@ def login():
         flash('You are logged in!')
         return redirect(url_for('index'))
     return render_template('login.html', form=form)
+
+
+db.create_all()
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000, debug=True)
