@@ -1,2 +1,4 @@
 GoCD/.env
 *.pyc
+db.sqlite
+venv
