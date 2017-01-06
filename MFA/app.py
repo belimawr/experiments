@@ -50,7 +50,7 @@ class RegisterForm(Form):
 class LoginForm(Form):
     username = StringField('Username', validators=[Required(), Length(1, 64)])
     password = PasswordField('Password', validators=[Required()])
-    subimit = SubmitField('Register')
+    subimit = SubmitField('Login')
 
 
 @app.route('/')
