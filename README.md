@@ -13,7 +13,7 @@ JavaScript
 
 Python
 ------
-* [ESP8266 Websocket](ESP8266_WebSocket): A small experiment to understand better how WebSocket works on a WSP8266 
+* [ESP8266 Websocket](ESP8266_WebSocket): A small experiment to understand better how WebSocket works on a ESP8266
 
 Kotlin
 -----------
