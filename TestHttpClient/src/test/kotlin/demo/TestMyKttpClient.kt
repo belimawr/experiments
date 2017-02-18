@@ -8,16 +8,30 @@ import org.junit.After
 import org.junit.Test
 import java.io.IOException
 import java.net.InetSocketAddress
+import java.security.SecureRandom
 import kotlin.test.assertEquals
 
 
 class TestMyKttpClient {
 
-    val server: HttpServer
+    val server: HttpServer = HttpServer.create()
     val serverAddr: String
 
     init {
-        server = HttpServer.create(InetSocketAddress(8888), 0)
+        val random = SecureRandom()
+        var tries = 0
+        var port = 8000 + random.nextInt(20000)
+
+        while (tries < 2000) {
+            tries ++
+            try {
+                server.bind(InetSocketAddress(port), 0)
+                break
+            } catch (e: Exception) {
+                port = 8000 + random.nextInt(20000)
+            }
+        }
+
         server.executor = null
         server.start()
 
