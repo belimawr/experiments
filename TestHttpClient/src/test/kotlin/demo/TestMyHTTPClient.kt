@@ -12,7 +12,7 @@ import java.security.SecureRandom
 import kotlin.test.assertEquals
 
 
-class TestMyKttpClient {
+class TestMyHTTPClient {
 
     val server: HttpServer = HttpServer.create()
     val serverAddr: String
