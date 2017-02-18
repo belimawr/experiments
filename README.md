@@ -15,6 +15,10 @@ Python
 ------
 * [ESP8266 Websocket](ESP8266_WebSocket): A small experiment to understand better how WebSocket works on a WSP8266 
 
+Kotlin
+-----------
+* [TestHTTPClient](TestHTTPClient): Testing/validating calls to external webservers
+
 Others
 ------
 * [Docker-Compose](docker-compose): Some experiments/tests/tutorials with docker-compose
