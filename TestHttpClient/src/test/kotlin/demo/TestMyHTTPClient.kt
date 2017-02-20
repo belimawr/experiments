@@ -1,12 +1,9 @@
 package demo
 
-import com.sun.net.httpserver.HttpExchange
-import com.sun.net.httpserver.HttpHandler
 import com.sun.net.httpserver.HttpServer
 import khttp.get
 import org.junit.After
 import org.junit.Test
-import java.io.IOException
 import java.net.InetSocketAddress
 import java.security.SecureRandom
 import kotlin.test.assertEquals
@@ -23,7 +20,7 @@ class TestMyHTTPClient {
         var port = 8000 + random.nextInt(20000)
 
         while (tries < 2000) {
-            tries ++
+            tries++
             try {
                 server.bind(InetSocketAddress(port), 0)
                 break
@@ -45,7 +42,14 @@ class TestMyHTTPClient {
 
     @Test fun shouldMakeTwoHTTPCalls() {
         val counter = Count(0)
-        server.createContext("/shouldMakeTwoHTTPCalls", MockHTTPHandler(counter))
+        server.createContext("/shouldMakeTwoHTTPCalls") { t ->
+            val response = "This is the response"
+            t.sendResponseHeaders(200, response.length.toLong())
+            val os = t.responseBody
+            os.write(response.toByteArray())
+            os.close()
+            counter.testCount++
+        }
 
         val r = get(serverAddr + "/shouldMakeTwoHTTPCalls")
         val r2 = get(serverAddr + "/shouldMakeTwoHTTPCalls")
@@ -60,7 +64,14 @@ class TestMyHTTPClient {
 
     @Test fun shouldMakeOneHTTPCalls() {
         val counter = Count(0)
-        server.createContext("/test", MockHTTPHandler(counter))
+        server.createContext("/test") { t ->
+            val response = "This is the response"
+            t.sendResponseHeaders(200, response.length.toLong())
+            val os = t.responseBody
+            os.write(response.toByteArray())
+            os.close()
+            counter.testCount++
+        }
 
         val r = get(serverAddr + "/test")
         assertEquals(200, r.statusCode)
@@ -72,18 +83,6 @@ class TestMyHTTPClient {
         assertEquals(1, counter.testCount)
     }
 
-    internal class MockHTTPHandler(val counter: Count) : HttpHandler {
-
-        @Throws(IOException::class)
-        override fun handle(t: HttpExchange) {
-            val response = "This is the response"
-            t.sendResponseHeaders(200, response.length.toLong())
-            val os = t.responseBody
-            os.write(response.toByteArray())
-            os.close()
-            counter.testCount++
-        }
-    }
 
     data class Count(var testCount: Int)
 }
