@@ -14,6 +14,7 @@ JavaScript
 Python
 ------
 * [ESP8266 Websocket](ESP8266_WebSocket): A small experiment to understand better how WebSocket works on a ESP8266
+* [OpenCV](OpenCV-Python): Some very small experiments with OpenCV
 
 Kotlin
 -----------
