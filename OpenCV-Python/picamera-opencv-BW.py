@@ -18,7 +18,8 @@ with picamera.PiCamera() as camera:
 		frame = np.fromstring(stream.getvalue(), dtype=np.uint8)
 		stream.seek(0)
 		frame = cv2.imdecode(frame, cv2.IMREAD_GRAYSCALE)
-		frame = cv2.threshold(frame, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+		frame = cv2.GaussianBlur(frame, (5, 5), 0)
+		frame = cv2.threshold(frame, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
 		cv2.imshow('Image', frame)
 		if cv2.waitKey(1) & 0xFF == ord('q'):
