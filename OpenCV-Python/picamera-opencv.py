@@ -17,7 +17,7 @@ with picamera.PiCamera() as camera:
 		camera.capture(stream, format="jpeg", use_video_port=True, resize=(320, 240))
 		frame = np.fromstring(stream.getvalue(), dtype=np.uint8)
 		stream.seek(0)
-		frame = cv2.imdecode(frame, 1)
+		frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
 		cv2.imshow('Image', frame)
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
