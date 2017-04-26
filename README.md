@@ -19,6 +19,7 @@ Python
 Kotlin
 -----------
 * [TestHTTPClient](TestHTTPClient): Testing/validating calls to external webservers
+* [Kotlin + Spark](Spark-Kotlin): Very small experiment to start a project using Kotlin + Spark + Gradle from scratch
 
 Others
 ------
