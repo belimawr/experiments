@@ -5,7 +5,6 @@ import picamera
 import cv2
 
 import numpy as np
-#640, 480
 
 x_offset = 120
 y_offset = 90
@@ -29,25 +28,44 @@ def roi(image):
 def process_image(image):
     img = cv2.Canny(image, threshold1=100, threshold2=200)
     img = cv2.GaussianBlur(img, (3,3), 0 )
-    lines = cv2.HoughLinesP(img, 1, np.pi/180, 180, minLineLength=150, maxLineGap=10)
+
+    lines = cv2.HoughLinesP(img, 1, np.pi/180, 100, minLineLength=150, maxLineGap=10)
+    lines = filter(valid_line, map(lambda x: x[0], lines))
+
     return img, lines
 
-def draw_lines(img, lines):
-    try:
-        for i, line in enumerate(lines):
-            coords = line[0]
-            if coords[1] >= 315:
-                continue
+def valid_line(line):
+    x1, y1, x2, y2 = line
 
-            print(i, angle(coords))
-            cv2.line(img, (coords[0],coords[1]), (coords[2],coords[3]), 255, 3)
-    except TypeError as e:
+    if (y1 >= (y_offset + y_size-5)) or (y2 >= (y_offset + y_size-5)) or (y1 <= (y_offset+5)) or (y2 <= (y_offset+5)):
+        if angle(line) < 1:
+            return False
+
+    if (x1 >= (x_offset + x_size-5)) or (x2 >= (x_offset + x_size-5)) or (x1 <= (x_offset+5)) or (x2 <= (x_offset+5)):
+        if angle(line) > 85:
+            return False
+
+    return True
+
+def draw_lines(img, lines):
+    if lines is None:
         print('No Line :(')
-    return
+        return
+
+    for i, line in enumerate(lines):
+        cv2.line(img, (line[0], line[1]), (line[2], line[3]), 255, 3)
+
 
 def angle(line):
     x1, y1, x2, y2 = line
-    m = abs(y1 - y2)/abs(x1 - x2)
+
+    dx = abs(x1 - x2)
+    dy = abs(y1 - y2)
+
+    if dx == 0:
+        return 0
+
+    m = dy/dx
     return math.degrees(math.atan(m))
 
 with picamera.PiCamera() as camera:
