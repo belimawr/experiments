@@ -5,8 +5,20 @@ import picamera
 import cv2
 
 import numpy as np
+#640, 480
 
-vertices = np.array([[0,0],[0,320], [640,320], [640,0]], np.int32)
+x_offset = 120
+y_offset = 90
+
+x_size = 400
+y_size = 300
+
+vertices = np.array([
+                      [x_offset, y_offset],
+                      [x_offset, y_offset + y_size],
+                      [x_offset + x_size, y_offset + y_size],
+                      [x_offset + x_size, y_offset]
+                    ], np.int32)
 
 def roi(image):
 	mask = np.zeros_like(image)
