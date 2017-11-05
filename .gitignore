@@ -3,3 +3,5 @@ GoCD/.env
 */.idea/
 */build/
 */.gradle/
+*/flymd\.html
+*/flymd\.md
