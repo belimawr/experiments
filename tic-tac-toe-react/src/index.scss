@@ -13,6 +13,16 @@ ol, ul {
   display: table;
 }
 
+button {
+    width: 130px;
+}
+
+li, button {
+    &.active {
+        font-weight: bold;
+    }
+}
+
 .status {
   margin-bottom: 10px;
 }
