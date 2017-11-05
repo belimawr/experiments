@@ -50,6 +50,7 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
+      reversed: false,
     };
   }
 
@@ -87,7 +88,7 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    const moves = history.map((step, move) => {
+    var moves = history.map((step, move) => {
       const description = move ? 'Go to move #' + move : 'Go to game start';
       const klass = move === this.state.stepNumber ? 'active' : null;
       return (
@@ -98,6 +99,10 @@ class Game extends React.Component {
         </li>
       );
     });
+
+    if (this.state.reversed) {
+      moves = moves.reverse();
+    }
 
     let status;
     if (winner) {
@@ -113,6 +118,13 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
+          <button
+            onClick={() =>
+              this.setState({
+                reversed: !this.state.reversed,
+              })}>
+            Reverse moves list
+          </button>
           <ol>{moves}</ol>
         </div>
       </div>
