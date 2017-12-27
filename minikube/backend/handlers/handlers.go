@@ -1,29 +1,23 @@
 package handlers
 
 import (
-	"log"
+	"fmt"
 	"net/http"
-	"time"
 
-	"github.com/dimiro1/health"
+	"github.com/belimawr/uhttp"
 )
 
-// NewHealthHandler returns a health handler
-func NewHealthHandler(version string) http.Handler {
-	handler := health.NewHandler()
-	handler.AddInfo("version", version)
+// NewHelloHandler returns a http.Handler that says hello
+func NewHelloHandler(key string) http.Handler {
+	return uhttp.WrapFunc(func(w http.ResponseWriter, r *http.Request) error {
+		who := r.URL.Query().Get(key)
 
-	return handler
-}
+		if who == "" {
+			who = "World"
+		}
 
-// NewLogMiddleware wraps a http.Handler with a logger
-func NewLogMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		start := time.Now()
-		next.ServeHTTP(w, r)
-		elapsed := time.Now().Sub(start)
-		log.Printf("%s, duration: %.5fms",
-			r.URL.String(),
-			float64(elapsed)/float64(time.Millisecond))
+		fmt.Fprintf(w, "Hello %s!", who)
+
+		return nil
 	})
 }

@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "github.com/belimawr/uhttp"
+  packages = ["."]
+  revision = "b4761307298f8a75bded237fdc55e799e9017aa6"
+
+[[projects]]
   name = "github.com/caarlos0/env"
   packages = ["."]
   revision = "7cd7992b3bc86f920394f8de92c13900da1a46b7"
@@ -16,6 +22,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ec4eb388243560f5e3275d5e34e660df1bb3aed2761bcf2b9ba818dcbb06ad8a"
+  inputs-digest = "cfcf8cc14af4b6472b404e3f86c07097e90b01fe11d6f40f3dfb8ab2daeaebb9"
   solver-name = "gps-cdcl"
   solver-version = 1

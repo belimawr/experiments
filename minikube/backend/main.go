@@ -16,9 +16,11 @@ func main() {
 		log.Fatalf("error parsing config: %q", err)
 	}
 
-	health := handlers.NewHealthHandler("Development")
+	health := handlers.NewLogMiddleware(handlers.NewHealthHandler("Development"))
+	hello := handlers.NewLogMiddleware(handlers.NewHelloHandler("who"))
 
-	http.Handle("/health/", handlers.NewLogMiddleware(health))
+	http.Handle("/health/", health)
+	http.Handle("/hello", hello)
 
 	addr := fmt.Sprintf(":%d", cfg.Port)
 
