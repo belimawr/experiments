@@ -2,30 +2,42 @@ package main
 
 import (
 	"fmt"
-	"log"
+	stdlog "log"
 	"net/http"
 
 	"github.com/belimawr/experiments/minikube/backend/config"
 	"github.com/belimawr/experiments/minikube/backend/handlers"
 	"github.com/caarlos0/env"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
+	"github.com/rs/zerolog/hlog"
 )
 
 func main() {
 	cfg := config.Config{}
 	if err := env.Parse(&cfg); err != nil {
-		log.Fatalf("error parsing config: %q", err)
+		stdlog.Fatalf("error parsing config: %q", err)
 	}
 
-	health := handlers.NewLogMiddleware(handlers.NewHealthHandler("Development"))
-	hello := handlers.NewLogMiddleware(handlers.NewHelloHandler("who"))
+	logger := cfg.ZeroLog()
+	stdlog.SetFlags(0)
+	stdlog.SetOutput(logger)
 
-	http.Handle("/health/", health)
-	http.Handle("/hello", hello)
+	health := handlers.NewHealthHandler("Development")
+	hello := handlers.NewHelloHandler("who")
+
+	router := chi.NewRouter()
+	router.Use(middleware.StripSlashes)
+	router.Use(hlog.NewHandler(logger))
+	router.Use(handlers.NewLogMiddleware())
+
+	router.Method("GET", "/health", health)
+	router.Method("GET", "/hello", hello)
 
 	addr := fmt.Sprintf(":%d", cfg.Port)
 
-	log.Printf("starting webserver on: %s", addr)
-	if err := http.ListenAndServe(addr, nil); err != nil {
-		log.Panic(err)
+	logger.Info().Msgf("starting webserver on: %q", addr)
+	if err := http.ListenAndServe(addr, router); err != nil {
+		logger.Panic().Err(err)
 	}
 }

@@ -19,9 +19,33 @@
   packages = ["."]
   revision = "22672c48855646f5d54b6315336d2e3fee6eef81"
 
+[[projects]]
+  name = "github.com/go-chi/chi"
+  packages = ["."]
+  revision = "e83ac2304db3c50cf03d96a2fcd39009d458bc35"
+  version = "v3.3.2"
+
+[[projects]]
+  name = "github.com/rs/xid"
+  packages = ["."]
+  revision = "02dd45c33376f85d1064355dc790dcc4850596b1"
+  version = "v1.1"
+
+[[projects]]
+  name = "github.com/rs/zerolog"
+  packages = [".","hlog","internal/json","log"]
+  revision = "3ac71fc58dbd43122668a912b755b0979ba9ce1f"
+  version = "v1.3.0"
+
+[[projects]]
+  name = "github.com/zenazn/goji"
+  packages = ["web/mutil"]
+  revision = "64eb34159fe53473206c2b3e70fe396a639452f2"
+  version = "v1.0"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "cfcf8cc14af4b6472b404e3f86c07097e90b01fe11d6f40f3dfb8ab2daeaebb9"
+  inputs-digest = "905412d952528a143f1a59efc767d95281d1f5fc75fc9cc1dadc7054e81a5dd4"
   solver-name = "gps-cdcl"
   solver-version = 1
